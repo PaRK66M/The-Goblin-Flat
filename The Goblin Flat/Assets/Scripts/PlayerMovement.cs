@@ -11,6 +11,10 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D rb;
     private CustomInput input = null;
 
+    public Vector2 facing = Vector2.left;
+
+    public DetectPocketsRaycast scriptDP;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +31,14 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate() 
     {
-        rb.MovePosition(rb.position + movementVector * speed * Time.fixedDeltaTime);
+        if(movementVector != Vector2.zero)
+        {
+            rb.MovePosition(rb.position + movementVector * speed * Time.fixedDeltaTime);
+            if (movementVector != facing)
+            {
+                ChangeFacing(movementVector);
+            }
+        }
     }
 
     private void EnableInput()
@@ -52,5 +63,11 @@ public class PlayerMovement : MonoBehaviour
     private void OnMovementCancelled(InputAction.CallbackContext value)
     {
         movementVector = Vector2.zero;
+    }
+
+    private void ChangeFacing(Vector2 newFacing)
+    {
+        facing = newFacing;
+        scriptDP.facing = newFacing;
     }
 }
