@@ -56,7 +56,10 @@ public class DetectPocketsRaycast : MonoBehaviour
         else
         {
             pockets = Physics2D.Raycast(raycastStart.position, facing, reachDistance, pocketPickingFilter.layerMask);
-            Debug.DrawRay(raycastStart.position, facing * reachDistance, Color.green);
+            if (!pockets)
+            {
+                currentPocket.GetComponent<ChangeImage>().ChangeRender(0);
+            }
         }
         
         

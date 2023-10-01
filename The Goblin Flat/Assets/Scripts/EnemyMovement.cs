@@ -8,9 +8,12 @@ public class EnemyMovement : MonoBehaviour
     private int positionNumber = 0;
     private int listSize;
 
-    public float speed = 10;
+    public float speed = 5;
+    public float changeDelay = 4;
     private float timeValue = 0;
     private float timeIncrement;
+
+    private float delayTimer;
 
     // Start is called before the first frame update
     void Start()
@@ -27,12 +30,19 @@ public class EnemyMovement : MonoBehaviour
             NextPosition();
         }
 
-        timeValue += timeIncrement * Time.deltaTime;
+        if (delayTimer > 0)
+        {
+            delayTimer -= Time.deltaTime;
+        }
+        else 
+        {
+            timeValue += timeIncrement * Time.deltaTime;
+            transform.position = new Vector3(Mathf.Lerp(movementPositions[positionNumber - 1].position.x, movementPositions[positionNumber].position.x, timeValue),
+                                             Mathf.Lerp(movementPositions[positionNumber - 1].position.y, movementPositions[positionNumber].position.y, timeValue),
+                                             0);
+        }
 
-
-        transform.position = new Vector3(Mathf.Lerp(movementPositions[positionNumber - 1].position.x, movementPositions[positionNumber].position.x, timeValue),
-                                         Mathf.Lerp(movementPositions[positionNumber - 1].position.y, movementPositions[positionNumber].position.y, timeValue),
-                                         0);
+        
     }
 
     private void NextPosition()
@@ -51,5 +61,6 @@ public class EnemyMovement : MonoBehaviour
 
         timeIncrement = speed / totalDistance;
 
+        delayTimer = changeDelay;
     }
 }

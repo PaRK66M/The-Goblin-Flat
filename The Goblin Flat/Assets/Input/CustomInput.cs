@@ -233,6 +233,17 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
                     ""action"": ""PickingPockets"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c0e96730-e660-4ea9-adb2-1e5b77b903fa"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PickingPockets"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
