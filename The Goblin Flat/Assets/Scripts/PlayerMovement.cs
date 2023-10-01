@@ -15,6 +15,9 @@ public class PlayerMovement : MonoBehaviour
 
     public DetectPocketsRaycast scriptDP;
 
+    private bool pickingPocket = false;
+    public GameObject pocketUi;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
         input.Enable();
         input.Player.Movement.performed += OnMovementPerformed;
         input.Player.Movement.canceled += OnMovementCancelled;
+        input.Player.PickingPockets.performed += OnPocketPick;
     }
 
     private void DisableInput()
@@ -53,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
         input.Disable();
         input.Player.Movement.performed -= OnMovementPerformed;
         input.Player.Movement.canceled -= OnMovementCancelled;
+        input.Player.PickingPockets.performed -= OnPocketPick;
     }
 
     private void OnMovementPerformed(InputAction.CallbackContext value) 
@@ -63,6 +68,25 @@ public class PlayerMovement : MonoBehaviour
     private void OnMovementCancelled(InputAction.CallbackContext value)
     {
         movementVector = Vector2.zero;
+    }
+
+    private void OnPocketPick(InputAction.CallbackContext value)
+    {
+        if (scriptDP.pockets)
+        {
+            if (pickingPocket)
+            {
+
+            }
+            else
+            {
+                pickingPocket = true;
+                scriptDP.currentPocket.layer = 8;
+                scriptDP.pickingPockets = true;
+                pocketUi.SetActive(true);
+            }
+        }
+        
     }
 
     private void ChangeFacing(Vector2 newFacing)

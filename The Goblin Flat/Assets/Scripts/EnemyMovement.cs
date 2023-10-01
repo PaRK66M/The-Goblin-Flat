@@ -29,7 +29,6 @@ public class EnemyMovement : MonoBehaviour
 
         timeValue += timeIncrement * Time.deltaTime;
 
-        Debug.Log(timeValue);
 
         transform.position = new Vector3(Mathf.Lerp(movementPositions[positionNumber - 1].position.x, movementPositions[positionNumber].position.x, timeValue),
                                          Mathf.Lerp(movementPositions[positionNumber - 1].position.y, movementPositions[positionNumber].position.y, timeValue),
