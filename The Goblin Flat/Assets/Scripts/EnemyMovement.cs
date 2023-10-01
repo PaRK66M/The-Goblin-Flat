@@ -15,6 +15,12 @@ public class EnemyMovement : MonoBehaviour
 
     private float delayTimer;
 
+    public Sprite[] images;
+    public Sprite[] otherImages;
+    public GameObject spriteRenderer;
+    public GameObject otherSpriteRenderer;
+    private bool isRotated = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -58,6 +64,37 @@ public class EnemyMovement : MonoBehaviour
         float distanceY = Mathf.Abs(movementPositions[positionNumber - 1].transform.position.y - movementPositions[positionNumber].transform.position.y);
         float totalDistance = Mathf.Sqrt(distanceX * distanceX + distanceY * distanceY);
 
+
+        if (isRotated)
+        {
+            spriteRenderer.transform.Rotate(new Vector3(0, -180, 0));
+            otherSpriteRenderer.transform.Rotate(new Vector3(0, -180, 0));
+            isRotated = false;
+        }
+
+        if (distanceX > 0)
+        {
+            spriteRenderer.GetComponent<SpriteRenderer>().sprite = images[2];
+            spriteRenderer.transform.Rotate(new Vector3(0, 180, 0));
+            otherSpriteRenderer.GetComponent<SpriteRenderer>().sprite = otherImages[2];
+            otherSpriteRenderer.transform.Rotate(new Vector3(0, 180, 0));
+            isRotated = true;
+        }
+        else if (distanceX < 0)
+        {
+            spriteRenderer.GetComponent<SpriteRenderer>().sprite = images[2];
+            otherSpriteRenderer.GetComponent<SpriteRenderer>().sprite = otherImages[2];
+        }
+        else if (distanceY > 0)
+        {
+            spriteRenderer.GetComponent<SpriteRenderer>().sprite = images[1];
+            otherSpriteRenderer.GetComponent<SpriteRenderer>().sprite = otherImages[1];
+        }
+        else
+        {
+            spriteRenderer.GetComponent<SpriteRenderer>().sprite = images[0];
+            otherSpriteRenderer.GetComponent<SpriteRenderer>().sprite = otherImages[0];
+        }
 
         timeIncrement = speed / totalDistance;
 
