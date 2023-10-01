@@ -28,6 +28,10 @@ public class PlayerMovement : MonoBehaviour
 
     public GameObject loseScreen;
 
+    public Sprite[] images;
+    public GameObject spriteRenderer;
+    private bool isRotated = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -150,8 +154,32 @@ public class PlayerMovement : MonoBehaviour
 
     private void ChangeFacing(Vector2 newFacing)
     {
+        if (isRotated)
+        {
+            spriteRenderer.transform.Rotate(new Vector3(0, -180, 0));
+            isRotated = false;
+        }
         facing = newFacing;
         scriptDP.facing = newFacing;
+        Debug.Log(facing);
 
+        if(facing.x > 0)
+        {
+            spriteRenderer.GetComponent<SpriteRenderer>().sprite = images[2];
+            spriteRenderer.transform.Rotate(new Vector3(0, 180, 0));
+            isRotated = true;
+        }
+        else if(facing.x < 0)
+        {
+            spriteRenderer.GetComponent<SpriteRenderer>().sprite = images[2];
+        }
+        else if(facing.y > 0)
+        {
+            spriteRenderer.GetComponent<SpriteRenderer>().sprite = images[1];
+        }
+        else
+        {
+            spriteRenderer.GetComponent<SpriteRenderer>().sprite = images[0];
+        }
     }
 }

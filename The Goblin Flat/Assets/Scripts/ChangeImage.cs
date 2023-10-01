@@ -15,8 +15,14 @@ public class ChangeImage : MonoBehaviour
 
     public void ChangeRender(int i)
     {
-        currentImage.SetActive(false);
+        if (i == 0)
+        {
+            currentImage.SetActive(false);
+        }
+
         currentImage = images[i];
         currentImage.SetActive(true);
+
+
     }
 }
